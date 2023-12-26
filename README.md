@@ -4,7 +4,7 @@ Pepsi is a dedicated application that serves as an interface to access and confi
 
 ## Overview
 
-Pepsi is a web-based application hosted on a separate domain/IP address. 
+Pepsi is a web-based application hosted on a separate domain/IP address.  https://yara-ghawadrah.github.io/pepsi/
 
 ## Features
 
