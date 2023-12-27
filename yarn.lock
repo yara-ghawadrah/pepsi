@@ -1725,10 +1725,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-sari-package@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/sari-package/-/sari-package-2.0.0.tgz#896179ecf1872dc7b5ffb944533632ef4bdf7f39"
-  integrity sha512-pohgKfnev9KtNMNGuA5B1NmlMhZrzxjV/l3/4M+pd9YCFTURRhpd+XD+oV9+7ln/n2482NziW8jlqPk9SePoRw==
+sari-package@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sari-package/-/sari-package-2.0.1.tgz#7272b28666d179f182a3935c4f5ee07bc0b12411"
+  integrity sha512-uVD43PSJh2SumZQd1cVAMh9Sbz9xuOLDKCPvL5KLOf1k8ko1n2K6QmBRAjNSyU8JfPDKlt1fyoxM5nRBmt180A==
   dependencies:
     "@react-google-maps/api" "^2.19.2"
     axios "^1.6.2"
