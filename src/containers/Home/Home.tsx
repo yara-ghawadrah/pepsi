@@ -11,7 +11,7 @@ import {
   Select,
   Text
 } from "./Home.styles";
-import Map, { Transaction, SariMapRef } from "sari-package";
+import Map, { Transaction, SariMapRef, TransactionStatus } from "sari-package";
 
 const DEFAULT_ZOOM = 10;
 
@@ -27,6 +27,7 @@ function Home() {
   );
   const [debouncedPois, setDebouncedPOIs] = useState<string[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactionsStatus, setTransactionsStatus] = useState<TransactionStatus>(TransactionStatus.Idle);
   const [locationsClickedDetails, setLocationsClickedDetails] = useState<
     string[]
   >([]);
@@ -55,7 +56,12 @@ function Home() {
             details
           ]);
         }}
-        onTransactionsChange={setTransactions}
+        onTransactionsChange={(status: TransactionStatus, data?:Transaction[])=>{
+          setTransactionsStatus(status)
+          if(data){
+            setTransactions(data)
+          }
+        }}
         zoom={currentZoom}
         onZoomChange={setCurrentZoom}
         onCenterChange={setMapCenter}
@@ -90,12 +96,13 @@ function Home() {
           >
             Fetch transactions
           </Button>
+          <Text>Transactions Status = {transactionsStatus}</Text>
           <Button
             onClick={() => {
               map.current!.resetCenter();
             }}
           >
-            Set Map Centroid
+            Set Map Default Center
           </Button>
           <Button
             onClick={() => {
