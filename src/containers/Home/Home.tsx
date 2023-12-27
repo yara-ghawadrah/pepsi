@@ -1,17 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { LocationsClicked } from "../../components/LocationsClicked/LocationsClicked";
 import TransactionsTable from "../../components/TransactionsTable/TransactionsTable";
-import {
-  Button,
-  ConfigurationsContainer,
-  DetailsSection,
-  InputField,
-  Option,
-  SariDetailsContainer,
-  Select,
-  Text
-} from "./Home.styles";
+import { SariDetailsContainer, DetailsSection, Text } from "./Home.styles";
 import Map, { Transaction, SariMapRef, TransactionStatus } from "sari-package";
+import SariConfigurations from "../../components/SariConfigurations/SariConfigurations";
 
 const DEFAULT_ZOOM = 10;
 
@@ -27,7 +19,8 @@ function Home() {
   );
   const [debouncedPois, setDebouncedPOIs] = useState<string[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [transactionsStatus, setTransactionsStatus] = useState<TransactionStatus>(TransactionStatus.Idle);
+  const [transactionsStatus, setTransactionsStatus] =
+    useState<TransactionStatus>(TransactionStatus.Idle);
   const [locationsClickedDetails, setLocationsClickedDetails] = useState<
     string[]
   >([]);
@@ -56,10 +49,13 @@ function Home() {
             details
           ]);
         }}
-        onTransactionsChange={(status: TransactionStatus, data?:Transaction[])=>{
-          setTransactionsStatus(status)
-          if(data){
-            setTransactions(data)
+        onTransactionsChange={(
+          status: TransactionStatus,
+          data?: Transaction[]
+        ) => {
+          setTransactionsStatus(status);
+          if (data) {
+            setTransactions(data);
           }
         }}
         zoom={currentZoom}
@@ -69,61 +65,16 @@ function Home() {
         appKey={import.meta.env.VITE_SARI_KEY}
       />
       <SariDetailsContainer>
-        <ConfigurationsContainer>
-          <h2>Sari's configurations:</h2>
-          <InputField
-            type="text"
-            value={poiInput}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setPoiInput(event.target.value);
-            }}
-            placeholder="Enter POIs separated by '/'"
-          />
-          <label>
-            <Text>
-              Enable Transaction Fetching{" "}
-              <input
-                type="checkbox"
-                checked={enableTransactionFetching}
-                onChange={toggleTransactionFetching}
-              />
-            </Text>
-          </label>
-          <Button
-            onClick={() => {
-              map.current!.getTransactions();
-            }}
-          >
-            Fetch transactions
-          </Button>
-          <Text>Transactions Status = {transactionsStatus}</Text>
-          <Button
-            onClick={() => {
-              map.current!.resetCenter();
-            }}
-          >
-            Set Map Default Center
-          </Button>
-          <Button
-            onClick={() => {
-              map.current!.resetZoom();
-            }}
-          >
-            Set Default Zoom Level
-          </Button>
-          <Select
-            value={mapType}
-            onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-              setMapType(event.target.value);
-            }}
-          >
-            {["roadmap", "hybrid", "satellite", "terrain"].map((value, id) => (
-              <Option key={id} value={value}>
-                {value}
-              </Option>
-            ))}
-          </Select>
-        </ConfigurationsContainer>
+        <SariConfigurations
+          poiInput={poiInput}
+          setPoiInput={setPoiInput}
+          enableTransactionFetching={enableTransactionFetching}
+          toggleTransactionFetching={toggleTransactionFetching}
+          map={map}
+          transactionsStatus={transactionsStatus}
+          mapType={mapType}
+          setMapType={setMapType}
+        />
         <DetailsSection>
           <h2>Sari's details:</h2>
           <Text>Current Zoom Level: {currentZoom}</Text>
